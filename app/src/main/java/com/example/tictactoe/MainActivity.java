@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
 import android.widget.Toast;
+
+import com.example.tictactoe.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button[][] buttons = new Button[3][3];
+    private ActivityMainBinding binding;
+
+    private final Button[][] buttons = new Button[3][3];
 
     private boolean player1Turn = true;
 
@@ -21,19 +25,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int player2Points;
     private int drawPoints;
 
-    private TextView textViewPlayer1;
-    private TextView textViewPlayer2;
-    private TextView textViewDraw;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        textViewPlayer1 = findViewById(R.id.textViewP1);
-        textViewPlayer2 = findViewById(R.id.textViewP2);
-        textViewDraw = findViewById(R.id.textViewDraw);
-
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -141,9 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updatePointsText(){
-        textViewPlayer1.setText("Player 1: " + player1Points);
-        textViewPlayer2.setText("Player 2: " + player2Points);
-        textViewDraw.setText("Draws: "+ drawPoints);
+        binding.textViewP1.setText("Player 1: " + player1Points);
+        binding.textViewP2.setText("Player 2: " + player2Points);
+        binding.textViewDraw.setText("Draws: "+ drawPoints);
     }
 
     private void resetBoard()
